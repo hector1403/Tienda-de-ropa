@@ -41,15 +41,106 @@
                     <p>atencion las 24 horas</p>
                 </article>
             </section>
+            <section id="pedido">
+        <h2>Hacer un pedido</h2>
+
+        <form action="/pedido" method="post">
+
+          <fieldset>
+            <legend>Tus datos</legend>
+
+            <p>
+              <label for="nombre">Nombre completo</label>
+
+              <input type="text" id="nombre" name="nombre"
+                     autocomplete="name" required>
+            </p>
+
+            <p>
+              <label for="email">Correo electrónico</label>
+              <input type="email" id="email" name="email"
+                     autocomplete="email" required>
+            </p>
+
+            <p>
+              <label for="telefono">Teléfono</label>
+
+              <input type="tel" id="telefono" name="telefono"
+                     autocomplete="tel" pattern="[0-9]{7,8}"
+                     title="7 u 8 dígitos, sin espacios">
+            </p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Tu pedido</legend>
+
+            <p>
+              <label for="producto">Producto</label>
+
+              <select id="producto" name="producto" required>
+                <option value="">Elige uno</option>
+                <option value="dia">Pan del día</option>
+                <option value="integral">Pan integral</option>
+                <option value="molde">Pan de molde</option>
+              </select>
+            </p>
+
+            <p>
+              <label for="cantidad">Cantidad</label>
+              <input type="number" id="cantidad" name="cantidad"
+                     min="1" max="100" value="1" required>
+            </p>
+
+            <p>
+              <label for="fecha">Fecha de entrega</label>
+              <input type="date" id="fecha" name="fecha" required>
+            </p>
+
+            <p>
+              <label for="notas">Alguna indicación</label>
+              <textarea id="notas" name="notas" rows="3"></textarea>
+            </p>
+
+            <p>
+
+              <input type="checkbox" id="terminos" name="terminos" required>
+              <label for="terminos">Acepto que el pedido se confirma por teléfono</label>
+            </p>
+          </fieldset>
+
+          <button type="submit">Enviar pedido</button>
+        </form>
+      </section>
+            <table>
+                <caption>Precios por productos y disponibilidad</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Disponible</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Moda femenina</td> <td>bs 60.00</td> <td>Precio unico</td></tr>
+                    <tr><td>Moda Masculino</td> <td>bs 70.00</td> <td>Precio unico</td></tr>
+                    <tr><td>Moda para Niñ@s</td> <td>bs 50.00</td> <td>Precio unico</td></tr>
+                </tbody>
+            </table>
+            <figure>
+                <img src="1 web jpg.jpg"
+                alt="vitrina con ropa vestida en un maniqui"
+                width="600" height="400">
+                <figcaption>siempe de alta calidad</figcaption>
+            </figure>
         </main>
         <aside>
         <h2>¿Sabías?</h2>
-            <p>te nenemos servicios de pago en efectivo y qr</p>
+            <p>tenemos servicios de pago en efectivo y qr</p>
         </aside>
         <footer id="Contacto">
             <h2>Contacto</h2>
             <address>
-                Av. Principal 145<br>
+                Av. estudiantil<br>
                 Teléfono: 71990990
             </address>
             <p><small>&copy; 2026 Camacho Estilos</small></p>
