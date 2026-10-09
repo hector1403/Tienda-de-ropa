@@ -1,0 +1,150 @@
+/* ── 1. EL RESET QUE SE PONE SIEMPRE ───────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* ── 2. CUSTOM PROPERTIES: se define una vez, se usa en todos lados ────── */
+:root {
+  --color-principal: #943109;
+  --color-acento:    #b8471f;
+  --color-texto:     #3F6078;
+  --color-suave:     #5c6b73;
+  --color-fondo:     #D17279;
+  --color-superficie: #EEAEB4;
+  --borde:           #d8dedb;
+
+  --espacio:    1rem;
+  --espacio-lg: 2rem;
+  --radio:      4px;
+}
+
+/* ── 3. TIPOGRAFÍA ─────────────────────────────────────────────────────── */
+body {
+  margin: 0;
+  padding: 0 var(--espacio);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-texto);
+  background: var(--color-fondo);
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+  color: var(--color-principal);
+}
+
+h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+h2 { font-size: 1.5rem; margin-top: var(--espacio-lg); }
+h3 { font-size: 1.15rem; }
+
+p { max-width: 65ch; }
+
+/* ── 4. ENLACES Y ESTADOS ──────────────────────────────────────────────── */
+a {
+  color: var(--color-principal);
+  text-underline-offset: 2px;
+}
+a:hover { color: var(--color-acento); }
+a:focus-visible {
+  outline: 3px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+/* ── 5. EL MODELO DE CAJA EN ACCIÓN ────────────────────────────────────── */
+header {
+  padding: var(--espacio-lg) var(--espacio);
+  border-bottom: 3px solid var(--color-principal);
+  margin-bottom: var(--espacio-lg);
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: var(--espacio) 0 0;
+}
+nav li { margin-bottom: 0.4rem; }
+
+article {
+  background: var(--color-superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: var(--espacio);
+  margin-bottom: var(--espacio);
+}
+
+/* ── 6. TABLA LEGIBLE ──────────────────────────────────────────────────── */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 40rem;
+  background: var(--color-superficie);
+  margin-left: auto;
+  margin-right: auto;
+}
+caption {
+  text-align: center;
+  color: var(--color-suave);
+  padding-bottom: 0.5rem;
+}
+th, td {
+  text-align: center;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--borde);
+}
+th {
+  background: var(--color-principal);
+  color: #fff;
+}
+
+/* ── 7. FORMULARIO ─────────────────────────────────────────────────────── */
+fieldset {
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: var(--espacio);
+  margin-bottom: var(--espacio);
+  max-width: 32rem;
+}
+legend {
+  padding: 0 0.4rem;
+  font-weight: 600;
+  color: var(--color-principal);
+}
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+input, select, textarea {
+
+  font-size: 1rem;
+  font-family: inherit;
+  padding: 0.5rem;
+  width: 100%;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+}
+input[type="checkbox"] { width: auto; }
+
+button {
+  font-size: 1rem;
+  font-family: inherit;
+  padding: 0.6rem 1.2rem;
+
+  min-height: 44px;
+  background: var(--color-principal);
+  color: #fff;
+  border: 0;
+  border-radius: var(--radio);
+  cursor: pointer;
+}
+button:hover { background: var(--color-acento); }
+
+img { max-width: 100%; height: auto; }
+
+footer {
+  margin-top: var(--espacio-lg);
+  padding: var(--espacio-lg) var(--espacio);
+  border-top: 1px solid var(--borde);
+  color: var(--color-suave);
+}
