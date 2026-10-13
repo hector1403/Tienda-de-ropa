@@ -186,7 +186,11 @@ nav li { margin-bottom: 0; }
 }
 
 /* ── La página completa, con áreas nombradas ───────────────────────────── */
-@media (min-width: 60rem) {
+@media (min-width: 60rem){
+  h1 {font-size: 2.5rem}
+  header {padding-inline: var(--espacio-log);}
+  nav ul {gap: var(--espacio-log);}
+  
   body {
     display: grid;
     grid-template-areas:
