@@ -1,0 +1,64 @@
+{
+  "negocio": {
+    "nombre": "Shop Camacho Estilos",
+    "slogan": "Siempre de Alta Calidad"
+  },
+  "productos": [
+    {
+      "nombre": "Pantalón Jean Flare Dama",
+      "precio": 85,
+      "unidad": "unidad",
+      "stock": 12,
+      "disponible": true
+    },
+    {
+      "nombre": "Camisa de Seda Elegante Dama",
+      "precio": 65,
+      "unidad": "unidad",
+      "stock": 8,
+      "disponible": true
+    },
+    {
+      "nombre": "Chompa de Hilo Fina Dama",
+      "precio": 75,
+      "unidad": "unidad",
+      "stock": 5,
+      "disponible": true
+    },
+    {
+      "nombre": "Buzo Oversize Urbano Dama",
+      "precio": 60,
+      "unidad": "unidad",
+      "stock": 0,
+      "disponible": false
+    },
+    {
+      "nombre": "Pantalón Jean Clásico Caballero",
+      "precio": 85,
+      "unidad": "unidad",
+      "stock": 10,
+      "disponible": true
+    },
+    {
+      "nombre": "Camisa Formal Oxford Caballero",
+      "precio": 70,
+      "unidad": "unidad",
+      "stock": 7,
+      "disponible": true
+    },
+    {
+      "nombre": "Pantalón Jogger Kids Resistente",
+      "precio": 45,
+      "unidad": "unidad",
+      "stock": 15,
+      "disponible": true
+    },
+    {
+      "nombre": "Camisita Casual Estampada Kids",
+      "precio": 40,
+      "unidad": "unidad",
+      "stock": 0,
+      "disponible": false
+    }
+  ]
+}

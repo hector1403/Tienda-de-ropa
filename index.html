@@ -1,154 +1,832 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="tienda de ropa. siempre de alta calidad.">
-        <title>Tienda de Ropa</title>
-        <link rel="stylesheet" href="estilos.css">
-    </head>
-    <body>
-        <header>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Shop Camacho Estilos - Tienda de ropa de alta calidad en Moda Femenina, Moda Masculina y Moda Kids. Pantalones, camisas, chompas y busos.">
+    <title>SHOP CAMACHO ESTILOS | Tienda de Ropa</title>
+    <!-- Fuentes modernas para un estilo elegante y legible -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+    <!-- ── CABECERA Y NAVEGACIÓN ────────────────────────────────────────────── -->
+    <header>
+        <div class="marca">
+            <span class="badge-coleccion">✨ Colección Exclusiva 2026</span>
             <h1>SHOP CAMACHO ESTILOS</h1>
-            <p>Siempre de Alta Calidad</p>
-            <nav>
+            <p>Siempre de Alta Calidad • Moda Femenina, Masculina y Kids</p>
+        </div>
+        <div class="header-acciones">
+            <button type="button" id="menu-toggle" class="btn-menu-panel" aria-expanded="false"
+                aria-controls="menu-movil">
+                <span class="icono-menu">☰</span> Menú y Panel
+            </button>
+            <nav aria-label="Navegación principal">
                 <ul>
-                    <li><a href="#Galeria">Galeria</a></li>
+                    <li><a href="#Galeria">Galería</a></li>
+                    <li><a href="#Panel">Panel de Moda</a></li>
                     <li><a href="#Horarios">Horarios</a></li>
-                    <li><a href="#Contactos">Contactos</a></li>
+                    <li><a href="#pedido">Hacer Pedido</a></li>
+                    <li><a href="#Precios">Precios</a></li>
+                    <li><a href="#Contactos">Contacto</a></li>
                 </ul>
             </nav>
-        </header>
-        <main>
-            <section id="Galeria">
-                <h2>Nuestros Estilos</h2>
+        </div>
+        <!-- Panel desplegable de accesos directos -->
+        <div id="menu-movil" class="panel-menu-desplegable" style="display: none;">
+            <p class="menu-movil-titulo">Acceso Rápido al Catálogo y Panel:</p>
+            <div class="menu-movil-links">
+                <a href="#Galeria" class="link-chip">👗 Catálogo (4 Prendas por Moda)</a>
+                <a href="#Panel" class="link-chip">✨ Promociones y Tallas</a>
+                <a href="#pedido" class="link-chip">🛍️ Formulario de Pedido</a>
+                <a href="#Precios" class="link-chip">🏷️ Tabla Comparativa</a>
+                <a href="#Horarios" class="link-chip">⏰ Horarios de Atención</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ── CONTENIDO PRINCIPAL ──────────────────────────────────────────────── -->
+    <main>
+        <!-- SECCIÓN 1: CATÁLOGO Y GALERÍA DE PRENDAS -->
+        <section id="Galeria">
+            <div class="seccion-titulo">
+                <h2>Nuestros Estilos y Prendas</h2>
+                <p class="subtitulo-seccion">Encuentra pantalones, camisas, chompas y busos confeccionados para dama,
+                    varón y niños.</p>
+            </div>
+
+            <div class="controles" role="search" aria-label="Búsqueda y filtros de ropa">
+                <div class="control-grupo control-buscador">
+                    <label for="buscador" class="visualmente-oculto">Buscar productos</label>
+                    <input type="search" id="buscador" placeholder="Buscar pantalón, camisa, chompa, buso...">
+                </div>
+
+                <div id="filtros" role="group" aria-label="Filtrar por categoría">
+                    <button type="button" class="activo" data-categoria="todos">Todos</button>
+                    <button type="button" data-categoria="moda-femenina">Moda Femenina (Mujer)</button>
+                    <button type="button" data-categoria="moda-masculina">Moda Masculina (Hombre)</button>
+                    <button type="button" data-categoria="moda-kids">Moda Kids (Niños)</button>
+                </div>
+
+                <div class="control-grupo control-orden">
+                    <label for="orden">Ordenar por:</label>
+                    <select id="orden">
+                        <option value="predeterminado">Predeterminado</option>
+                        <option value="nombre">Nombre (A - Z)</option>
+                        <option value="precio-menor">Precio: menor a mayor</option>
+                        <option value="precio-mayor">Precio: mayor a menor</option>
+                    </select>
+                </div>
+
+                <div class="control-grupo control-check">
+                    <label>
+                        <input type="checkbox" id="soloDisponibles">
+                        Solo disponibles
+                    </label>
+                </div>
+            </div>
+
+            <p id="resultado" aria-live="polite">Mostrando prendas de vestir disponibles...</p>
+
+            <!-- CONTENEDOR DE TARJETAS DE PRENDAS -->
+            <div id="productos">
+                <!-- ── MODA FEMENINA (ROPA PARA MUJER) ── -->
+                <article class="tarjeta" data-categoria="moda-femenina" data-tipo="pantalon" data-price="85"
+                    data-available="true">
+                    <div class="tarjeta-img-wrap">
+                        <img src="https://picsum.photos/seed/fem-pantalon/400/300" alt="Pantalón Jean Flare Dama">
+                    </div>
+                    <div class="tarjeta-cabecera">
+                        <span class="badge-categoria badge-moda-femenina">Moda Femenina</span>
+                        <span class="badge-tipo">Pantalón</span>
+                    </div>
+                    <h3>Pantalón Jean Flare Dama</h3>
+                    <p class="descripcion-prenda">Pantalón tiro alto de mezclilla suave y corte acampanado con ajuste
+                        perfecto.</p>
+                    <div class="tarjeta-pie">
+                        <div class="precio-contenedor">
+                            <span class="moneda-label">Precio:</span>
+                            <span class="precio">Bs 85.00</span>
+                        </div>
+                        <span class="stock disponible">Disponible</span>
+                    </div>
+                    <button type="button" class="btn-pedir" data-nombre="Pantalón Jean Flare Dama">Pedir prenda</button>
                 </article>
-                <article>
-                    <h3>Moda Femenina</h3>
-                    <p>de un solo color o colores mixtos</p>
+
+                <article class="tarjeta" data-categoria="moda-femenina" data-tipo="camisa" data-price="65"
+                    data-available="true">
+                    <div class="tarjeta-img-wrap">
+                        <img src="https://picsum.photos/seed/fem-camisa/400/300" alt="Camisa de Seda Elegante Dama">
+                    </div>
+                    <div class="tarjeta-cabecera">
+                        <span class="badge-categoria badge-moda-femenina">Moda Femenina</span>
+                        <span class="badge-tipo">Camisa</span>
+                    </div>
+                    <h3>Camisa de Seda Elegante Dama</h3>
+                    <p class="descripcion-prenda">Camisa de satén de seda suave al tacto con cuello clásico para eventos
+                        formales.</p>
+                    <div class="tarjeta-pie">
+                        <div class="precio-contenedor">
+                            <span class="moneda-label">Precio:</span>
+                            <span class="precio">Bs 65.00</span>
+                        </div>
+                        <span class="stock disponible">Disponible</span>
+                    </div>
+                    <button type="button" class="btn-pedir" data-nombre="Camisa de Seda Elegante Dama">Pedir
+                        prenda</button>
                 </article>
-                <article>
-                    <h3>Moda Masculina</h3>
-                    <p>de un solo color o colores mixtos</p>
-                </article>    
-                    <article>
-                    <h3>Moda para Niñ@s</h3>
-                    <p>de todo los estilos</p>
+
+                <article class="tarjeta" data-categoria="moda-femenina" data-tipo="chompa" data-price="75"
+                    data-available="true">
+                    <div class="tarjeta-img-wrap">
+                        <img src="https://picsum.photos/seed/fem-chompa/400/300" alt="Chompa de Hilo Fina Dama">
+                    </div>
+                    <div class="tarjeta-cabecera">
+                        <span class="badge-categoria badge-moda-femenina">Moda Femenina</span>
+                        <span class="badge-tipo">Chompa</span>
+                    </div>
+                    <h3>Chompa de Hilo Fina Dama</h3>
+                    <p class="descripcion-prenda">Chompa tejida en hilo suave de algodón, abrigada, ligera y estilizada.
+                    </p>
+                    <div class="tarjeta-pie">
+                        <div class="precio-contenedor">
+                            <span class="moneda-label">Precio:</span>
+                            <span class="precio">Bs 75.00</span>
+                        </div>
+                        <span class="stock disponible">Disponible</span>
+                    </div>
+                    <button type="button" class="btn-pedir" data-nombre="Chompa de Hilo Fina Dama">Pedir prenda</button>
                 </article>
-            </section>
-            <section id="Horarios">
-                <article>
-                    <h2>Horarios</h2>
-                    <h3>lunes a viernes</h3>
-                    <p>atencion las 24 horas</p>
+
+                <article class="tarjeta" data-categoria="moda-femenina" data-tipo="buso" data-price="60"
+                    data-available="true">
+                    <div class="tarjeta-img-wrap">
+                        <img src="https://picsum.photos/seed/fem-buso/400/300" alt="Buzo Oversize Urbano Dama">
+                    </div>
+                    <div class="tarjeta-cabecera">
+                        <span class="badge-categoria badge-moda-femenina">Moda Femenina</span>
+                        <span class="badge-tipo">Buso</span>
+                    </div>
+                    <h3>Buzo Oversize Urbano Dama</h3>
+                    <p class="descripcion-prenda">Buzo cómodo con capucha y bolsillo frontal para un look moderno de
+                        diario.</p>
+                    <div class="tarjeta-pie">
+                        <div class="precio-contenedor">
+                            <span class="moneda-label">Precio:</span>
+                            <span class="precio">Bs 60.00</span>
+                        </div>
+                        <span class="stock disponible">Disponible</span>
+                    </div>
+                    <button type="button" class="btn-pedir" data-nombre="Buzo Oversize Urbano Dama">Pedir
+                        prenda</button>
                 </article>
-            </section>
-            <section id="pedido">
-        <h2>Hacer un pedido</h2>
 
-        <form action="/pedido" method="post">
+                <!-- ── MODA MASCULINA (ROPA PARA HOMBRE) ── -->
+                <article class="tarjeta" data-categoria="moda-masculina" data-tipo="pantalon" data-price="85"
+                    data-available="true">
+                    <div class="tarjeta-img-wrap">
+                        <img src="https://picsum.photos/seed/masc-pantalon/400/300"
+                            alt="Pantalón Jean Clásico Caballero">
+                    </div>
+                    <div class="tarjeta-cabecera">
+                        <span class="badge-categoria badge-moda-masculina">Moda Masculina</span>
+                        <span class="badge-tipo">Pantalón</span>
+                    </div>
+                    <h3>Pantalón Jean Clásico Caballero</h3>
+                    <p class="descripcion-prenda">Jean de mezclilla resistente y corte recto, ideal para uso casual
+                        diario.</p>
+                    <div class="tarjeta-pie">
+                        <div class="precio-contenedor">
+                            <span class="moneda-label">Precio:</span>
+                            <span class="precio">Bs 85.00</span>
+                        </div>
+                        <span class="stock disponible">Disponible</span>
+                    </div>
+                    <button type="button" class="btn-pedir" data-nombre="Pantalón Jean Clásico Caballero">Pedir
+                        prenda</button>
+                </article>
 
-          <fieldset>
-            <legend>Tus datos</legend>
+                <article class="tarjeta" data-categoria="moda-masculina" data-tipo="camisa" data-price="70"
+                    data-available="true">
+                    <div class="tarjeta-img-wrap">
+                        <img src="https://picsum.photos/seed/masc-camisa/400/300" alt="Camisa Formal Oxford Caballero">
+                    </div>
+                    <div class="tarjeta-cabecera">
+                        <span class="badge-categoria badge-moda-masculina">Moda Masculina</span>
+                        <span class="badge-tipo">Camisa</span>
+                    </div>
+                    <h3>Camisa Formal Oxford Caballero</h3>
+                    <p class="descripcion-prenda">Camisa de corte slim fit 100% algodón, elegante y transpirable para
+                        toda ocasión.</p>
+                    <div class="tarjeta-pie">
+                        <div class="precio-contenedor">
+                            <span class="moneda-label">Precio:</span>
+                            <span class="precio">Bs 70.00</span>
+                        </div>
+                        <span class="stock disponible">Disponible</span>
+                    </div>
+                    <button type="button" class="btn-pedir" data-nombre="Camisa Formal Oxford Caballero">Pedir
+                        prenda</button>
+                </article>
 
-            <p>
-              <label for="nombre">Nombre completo</label>
+                <article class="tarjeta" data-categoria="moda-masculina" data-tipo="chompa" data-price="80"
+                    data-available="true">
+                    <div class="tarjeta-img-wrap">
+                        <img src="https://picsum.photos/seed/masc-chompa/400/300"
+                            alt="Chompa Tejida Cuello en V Caballero">
+                    </div>
+                    <div class="tarjeta-cabecera">
+                        <span class="badge-categoria badge-moda-masculina">Moda Masculina</span>
+                        <span class="badge-tipo">Chompa</span>
+                    </div>
+                    <h3>Chompa Tejida Cuello en V Caballero</h3>
+                    <p class="descripcion-prenda">Chompa de lana acrílica abrigada de acabado fino para combinar sobre
+                        camisas.</p>
+                    <div class="tarjeta-pie">
+                        <div class="precio-contenedor">
+                            <span class="moneda-label">Precio:</span>
+                            <span class="precio">Bs 80.00</span>
+                        </div>
+                        <span class="stock disponible">Disponible</span>
+                    </div>
+                    <button type="button" class="btn-pedir" data-nombre="Chompa Tejida Cuello en V Caballero">Pedir
+                        prenda</button>
+                </article>
 
-              <input type="text" id="nombre" name="nombre"
-                     autocomplete="name" required>
-            </p>
+                <article class="tarjeta" data-categoria="moda-masculina" data-tipo="buso" data-price="65"
+                    data-available="true">
+                    <div class="tarjeta-img-wrap">
+                        <img src="https://picsum.photos/seed/masc-buso/400/300" alt="Buzo Hoodie Deportivo Caballero">
+                    </div>
+                    <div class="tarjeta-cabecera">
+                        <span class="badge-categoria badge-moda-masculina">Moda Masculina</span>
+                        <span class="badge-tipo">Buso</span>
+                    </div>
+                    <h3>Buzo Hoodie Deportivo Caballero</h3>
+                    <p class="descripcion-prenda">Buzo deportivo de frisa con capucha ajustable y puños acanalados.</p>
+                    <div class="tarjeta-pie">
+                        <div class="precio-contenedor">
+                            <span class="moneda-label">Precio:</span>
+                            <span class="precio">Bs 65.00</span>
+                        </div>
+                        <span class="stock disponible">Disponible</span>
+                    </div>
+                    <button type="button" class="btn-pedir" data-nombre="Buzo Hoodie Deportivo Caballero">Pedir
+                        prenda</button>
+                </article>
 
-            <p>
-              <label for="email">Correo electrónico</label>
-              <input type="email" id="email" name="email"
-                     autocomplete="email" required>
-            </p>
+                <!-- ── MODA KIDS (ROPA PARA NIÑOS) ── -->
+                <article class="tarjeta" data-categoria="moda-kids" data-tipo="pantalon" data-price="45"
+                    data-available="true">
+                    <div class="tarjeta-img-wrap">
+                        <img src="https://picsum.photos/seed/kids-pantalon/400/300"
+                            alt="Pantalón Jogger Kids Resistente">
+                    </div>
+                    <div class="tarjeta-cabecera">
+                        <span class="badge-categoria badge-moda-kids">Moda Kids</span>
+                        <span class="badge-tipo">Pantalón</span>
+                    </div>
+                    <h3>Pantalón Jogger Kids Resistente</h3>
+                    <p class="descripcion-prenda">Pantalón con pretina elástica y refuerzo en rodillas para máxima
+                        libertad y juego.</p>
+                    <div class="tarjeta-pie">
+                        <div class="precio-contenedor">
+                            <span class="moneda-label">Precio:</span>
+                            <span class="precio">Bs 45.00</span>
+                        </div>
+                        <span class="stock disponible">Disponible</span>
+                    </div>
+                    <button type="button" class="btn-pedir" data-nombre="Pantalón Jogger Kids Resistente">Pedir
+                        prenda</button>
+                </article>
 
-            <p>
-              <label for="telefono">Teléfono</label>
+                <article class="tarjeta" data-categoria="moda-kids" data-tipo="camisa" data-price="40"
+                    data-available="true">
+                    <div class="tarjeta-img-wrap">
+                        <img src="https://picsum.photos/seed/kids-camisa/400/300" alt="Camisita Casual Estampada Kids">
+                    </div>
+                    <div class="tarjeta-cabecera">
+                        <span class="badge-categoria badge-moda-kids">Moda Kids</span>
+                        <span class="badge-tipo">Camisa</span>
+                    </div>
+                    <h3>Camisita Casual Estampada Kids</h3>
+                    <p class="descripcion-prenda">Camisa infantil de algodón hipoalergénico con diseños divertidos y
+                        frescos.</p>
+                    <div class="tarjeta-pie">
+                        <div class="precio-contenedor">
+                            <span class="moneda-label">Precio:</span>
+                            <span class="precio">Bs 40.00</span>
+                        </div>
+                        <span class="stock disponible">Disponible</span>
+                    </div>
+                    <button type="button" class="btn-pedir" data-nombre="Camisita Casual Estampada Kids">Pedir
+                        prenda</button>
+                </article>
 
-              <input type="tel" id="telefono" name="telefono"
-                     autocomplete="tel" pattern="[0-9]{7,8}"
-                     title="7 u 8 dígitos, sin espacios">
-            </p>
-          </fieldset>
+                <article class="tarjeta" data-categoria="moda-kids" data-tipo="chompa" data-price="50"
+                    data-available="true">
+                    <div class="tarjeta-img-wrap">
+                        <img src="https://picsum.photos/seed/kids-chompa/400/300" alt="Chompa Abrigada de Algodón Kids">
+                    </div>
+                    <div class="tarjeta-cabecera">
+                        <span class="badge-categoria badge-moda-kids">Moda Kids</span>
+                        <span class="badge-tipo">Chompa</span>
+                    </div>
+                    <h3>Chompa Abrigada de Algodón Kids</h3>
+                    <p class="descripcion-prenda">Chompa suave y térmica con motivos infantiles, abrigadora y segura.
+                    </p>
+                    <div class="tarjeta-pie">
+                        <div class="precio-contenedor">
+                            <span class="moneda-label">Precio:</span>
+                            <span class="precio">Bs 50.00</span>
+                        </div>
+                        <span class="stock disponible">Disponible</span>
+                    </div>
+                    <button type="button" class="btn-pedir" data-nombre="Chompa Abrigada de Algodón Kids">Pedir
+                        prenda</button>
+                </article>
 
-          <fieldset>
-            <legend>Tu pedido</legend>
+                <article class="tarjeta" data-categoria="moda-kids" data-tipo="buso" data-price="45"
+                    data-available="true">
+                    <div class="tarjeta-img-wrap">
+                        <img src="https://picsum.photos/seed/kids-buso/400/300" alt="Buzo Deportivo con Capucha Kids">
+                    </div>
+                    <div class="tarjeta-cabecera">
+                        <span class="badge-categoria badge-moda-kids">Moda Kids</span>
+                        <span class="badge-tipo">Buso</span>
+                    </div>
+                    <h3>Buzo Deportivo con Capucha Kids</h3>
+                    <p class="descripcion-prenda">Buzo abrigado para actividades escolares y deportes de alta
+                        durabilidad.</p>
+                    <div class="tarjeta-pie">
+                        <div class="precio-contenedor">
+                            <span class="moneda-label">Precio:</span>
+                            <span class="precio">Bs 45.00</span>
+                        </div>
+                        <span class="stock disponible">Disponible</span>
+                    </div>
+                    <button type="button" class="btn-pedir" data-nombre="Buzo Deportivo con Capucha Kids">Pedir
+                        prenda</button>
+                </article>
+            </div>
+        </section>
 
-            <p>
-              <label for="producto">Producto</label>
+        <!-- SECCIÓN: PANEL DE MODA INTERACTIVO -->
+        <section id="Panel" class="seccion-panel-destacado">
+            <div class="seccion-titulo">
+                <span class="badge-panel-tag">🔥 Centro de Beneficios y Atención</span>
+                <h2>Panel Interactivo de Tienda</h2>
+                <p class="subtitulo-seccion">Accede a promociones exclusivas en chompas y busos, consulta la guía de
+                    tallas por moda y conoce el cuidado de prendas finas.</p>
+            </div>
 
-              <select id="producto" name="producto" required>
-                <option value="">Elige uno</option>
-                <option value="dia">Prenda para varon</option>
-                <option value="integral">Prenda para mujer</option>
-                <option value="molde">Prenda para niños</option>
-              </select>
-            </p>
+            <div class="panel-grid-contenedor">
+                <!-- SUBPANEL 1: OFERTAS Y PROMOCIONES -->
+                <div class="panel-tarjeta panel-ofertas">
+                    <div class="panel-cabecera">
+                        <span class="panel-icono">🎁</span>
+                        <div>
+                            <h3>Promociones y Ofertas Exclusivas</h3>
+                            <p class="panel-bajada">Descuentos especiales por temporada en prendas seleccionadas.</p>
+                        </div>
+                    </div>
+                    <div class="panel-acciones">
+                        <button type="button" id="mostrar-avisos" class="btn-mostrar-avisos">
+                            ✨ Ver promociones y ofertas de ropa
+                        </button>
+                    </div>
+                    <ul id="avisos" class="lista-avisos" style="display: none;">
+                        <li class="aviso-item aviso-destacado">
+                            <span class="aviso-badge">🔥 OFERTA 20%</span>
+                            <div>
+                                <strong>Segunda Prenda al 20% OFF:</strong>
+                                <span>Aplica en todas las Chompas y Busos de Moda Femenina y Masculina.</span>
+                            </div>
+                        </li>
+                        <li class="aviso-item">
+                            <span class="aviso-badge">🚚 ENVÍO GRATIS</span>
+                            <div>
+                                <strong>Envío sin costo a domicilio:</strong>
+                                <span>Por compras a partir de Bs 150 en cualquier combinación de prendas.</span>
+                            </div>
+                        </li>
+                        <li class="aviso-item">
+                            <span class="aviso-badge">⚡ COMBO FAMILIAR</span>
+                            <div>
+                                <strong>Pack Dama + Varón + Kids:</strong>
+                                <span>Recibe un obsequio especial de la tienda al completar pedidos familiares.</span>
+                            </div>
+                        </li>
+                        <li class="aviso-item">
+                            <span class="aviso-badge">💳 PAGO FÁCIL</span>
+                            <div>
+                                <strong>QR Simple y Pago a Entrega:</strong>
+                                <span>Paga cómodamente al recibir tu prenda o mediante transferencia directa.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-            <p>
-              <label for="cantidad">Cantidad</label>
-              <input type="number" id="cantidad" name="cantidad"
-                     min="1" max="100" value="1" required>
-            </p>
+                <!-- SUBPANEL 2: GUÍA DE TALLAS Y CUIDADOS (ACORDEÓN) -->
+                <div class="panel-tarjeta panel-acordeon-wrapper">
+                    <div class="panel-cabecera">
+                        <span class="panel-icono">📐</span>
+                        <div>
+                            <h3>Guía de Tallas y Cuidado de Ropa</h3>
+                            <p class="panel-bajada">Haz clic en cada sección para desplegar las medidas y
+                                recomendaciones.</p>
+                        </div>
+                    </div>
 
-            <p>
-              <label for="fecha">Fecha de entrega</label>
-              <input type="date" id="fecha" name="fecha" required>
-            </p>
+                    <div id="acordeon" class="acordeon-tienda">
+                        <!-- Item 1 -->
+                        <div class="acordeon-item">
+                            <button type="button" class="titulo" aria-expanded="false">
+                                <span class="titulo-texto">👗 Guía de Tallas • Moda Femenina (Dama)</span>
+                                <span class="icono-flecha">▼</span>
+                            </button>
+                            <div class="cuerpo" style="display: none;">
+                                <p><strong>Pantalones y Jeans Dama:</strong> Tallas 26 (Cintura 64-68cm), 28 (68-72cm),
+                                    30 (72-76cm), 32 (76-80cm).</p>
+                                <p><strong>Camisas de Seda y Chompas:</strong> Tallas S (Busto 86-90cm), M (Busto
+                                    91-96cm), L (Busto 97-102cm).</p>
+                                <p class="nota-talla">💡 Todas las prendas cuentan con cambio de talla garantizado.</p>
+                            </div>
+                        </div>
 
-            <p>
-              <label for="notas">Alguna indicación</label>
-              <textarea id="notas" name="notas" rows="3"></textarea>
-            </p>
+                        <!-- Item 2 -->
+                        <div class="acordeon-item">
+                            <button type="button" class="titulo" aria-expanded="false">
+                                <span class="titulo-texto">👔 Guía de Tallas • Moda Masculina (Caballero)</span>
+                                <span class="icono-flecha">▼</span>
+                            </button>
+                            <div class="cuerpo" style="display: none;">
+                                <p><strong>Jeans Clásicos:</strong> Tallas 28, 30, 32, 34 y 36 con corte regular cómodo.
+                                </p>
+                                <p><strong>Camisas Oxford y Busos:</strong> Talla S (Pecho 92-96cm), M (98-102cm), L
+                                    (104-108cm), XL (110-116cm).</p>
+                                <p class="nota-talla">💡 Confección premium con costuras reforzadas.</p>
+                            </div>
+                        </div>
 
-            <p>
+                        <!-- Item 3 -->
+                        <div class="acordeon-item">
+                            <button type="button" class="titulo" aria-expanded="false">
+                                <span class="titulo-texto">🧒 Guía de Tallas • Moda Kids (Niños)</span>
+                                <span class="icono-flecha">▼</span>
+                            </button>
+                            <div class="cuerpo" style="display: none;">
+                                <p><strong>Joggers y Busos Kids:</strong> Tallas 4-6 (100-115cm altura), 8-10
+                                    (120-135cm), 12-14 (140-155cm).</p>
+                                <p><strong>Camisitas y Chompas:</strong> Tejidos hipoalergénicos suaves con elásticos
+                                    confortables que no aprietan.</p>
+                            </div>
+                        </div>
 
-              <input type="checkbox" id="terminos" name="terminos" required>
-              <label for="terminos">Acepto que el pedido se confirma por teléfono</label>
-            </p>
-          </fieldset>
+                        <!-- Item 4 -->
+                        <div class="acordeon-item">
+                            <button type="button" class="titulo" aria-expanded="false">
+                                <span class="titulo-texto">🧺 Cuidado y Lavado de Prendas Finas</span>
+                                <span class="icono-flecha">▼</span>
+                            </button>
+                            <div class="cuerpo" style="display: none;">
+                                <p><strong>Chompas de Hilo:</strong> Lavar preferentemente a mano con agua fría y secar
+                                    en plano a la sombra para evitar deformaciones.</p>
+                                <p><strong>Camisas y Busos:</strong> Lavar al revés a temperatura ambiente para
+                                    preservar el brillo y textura del color original.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-          <button type="submit">Enviar pedido</button>
-        </form>
-      </section>
-            <table>
-                <caption>Precios por productos y disponibilidad</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">Producto</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Disponible</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Moda femenina</td> <td>bs 60.00</td> <td>Precio unico</td></tr>
-                    <tr><td>Moda Masculino</td> <td>bs 70.00</td> <td>Precio unico</td></tr>
-                    <tr><td>Moda para Niñ@s</td> <td>bs 50.00</td> <td>Precio unico</td></tr>
-                </tbody>
-            </table>
+        <!-- SECCIÓN 2: HORARIOS DE ATENCIÓN -->
+        <section id="Horarios">
+            <article class="caja-horarios">
+                <h2>Horarios de Atención</h2>
+                <div class="grid-horarios">
+                    <div class="item-horario">
+                        <h3>Lunes a Viernes</h3>
+                        <p class="hora-destacada">Atención continua de 08:30 a 20:30</p>
+                        <p class="hora-nota">Atención en tienda física y pedidos en línea 24/7</p>
+                    </div>
+                    <div class="item-horario">
+                        <h3>Sábados y Domingos</h3>
+                        <p class="hora-destacada">09:00 a 18:00</p>
+                        <p class="hora-nota">Entregas y envíos coordinados por WhatsApp</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- SECCIÓN 3: FORMULARIO DE PEDIDOS -->
+        <section id="pedido">
+            <h2>Hacer un Pedido de Ropa</h2>
+            <p class="subtitulo-seccion">Completa tus datos y selecciona la prenda deseada. Nos comunicaremos contigo
+                para confirmar tu entrega.</p>
+
+            <form action="/pedido" method="post" novalidate>
+                <div class="formulario-grid">
+                    <!-- DATOS PERSONALES -->
+                    <fieldset>
+                        <legend>Tus datos personales</legend>
+                        <p class="campo">
+                            <label for="nombre">Nombre completo *</label>
+                            <input type="text" id="nombre" name="nombre" autocomplete="name"
+                                placeholder="Ej. Juan Pérez" required>
+                        </p>
+
+                        <p class="campo">
+                            <label for="email">Correo electrónico *</label>
+                            <input type="email" id="email" name="email" autocomplete="email"
+                                placeholder="ejemplo@correo.com" required>
+                        </p>
+
+                        <p class="campo">
+                            <label for="telefono">Teléfono / WhatsApp *</label>
+                            <input type="tel" id="telefono" name="telefono" autocomplete="tel" pattern="[0-9]{7,8}"
+                                title="Ingresa 7 u 8 dígitos numéricos" placeholder="Ej. 71990990" required>
+                        </p>
+                    </fieldset>
+
+                    <!-- DETALLES DEL PEDIDO -->
+                    <fieldset>
+                        <legend>Detalles de tu prenda</legend>
+                        <p class="campo">
+                            <label for="producto">Selecciona la Prenda *</label>
+                            <select id="producto" name="producto" required>
+                                <option value="">-- Elige una prenda --</option>
+                                <optgroup label="Moda Femenina (Mujer)">
+                                    <option value="fem-pantalon">Moda Femenina - Pantalón Jean Flare Dama (Bs 85.00)
+                                    </option>
+                                    <option value="fem-camisa">Moda Femenina - Camisa de Seda Elegante Dama (Bs 65.00)
+                                    </option>
+                                    <option value="fem-chompa">Moda Femenina - Chompa de Hilo Fina Dama (Bs 75.00)
+                                    </option>
+                                    <option value="fem-buso">Moda Femenina - Buzo Oversize Urbano Dama (Bs 60.00)
+                                    </option>
+                                </optgroup>
+                                <optgroup label="Moda Masculina (Hombre)">
+                                    <option value="masc-pantalon">Moda Masculina - Pantalón Jean Clásico Caballero (Bs
+                                        85.00)</option>
+                                    <option value="masc-camisa">Moda Masculina - Camisa Formal Oxford Caballero (Bs
+                                        70.00)</option>
+                                    <option value="masc-chompa">Moda Masculina - Chompa Tejida Cuello en V Caballero (Bs
+                                        80.00)</option>
+                                    <option value="masc-buso">Moda Masculina - Buzo Hoodie Deportivo Caballero (Bs
+                                        65.00)</option>
+                                </optgroup>
+                                <optgroup label="Moda Kids (Niños)">
+                                    <option value="kids-pantalon">Moda Kids - Pantalón Jogger Kids Resistente (Bs 45.00)
+                                    </option>
+                                    <option value="kids-camisa">Moda Kids - Camisita Casual Estampada Kids (Bs 40.00)
+                                    </option>
+                                    <option value="kids-chompa">Moda Kids - Chompa Abrigada de Algodón Kids (Bs 50.00)
+                                    </option>
+                                    <option value="kids-buso">Moda Kids - Buzo Deportivo con Capucha Kids (Bs 45.00)
+                                    </option>
+                                </optgroup>
+                            </select>
+                        </p>
+
+                        <div class="fila-dos-campos">
+                            <p class="campo">
+                                <label for="cantidad">Cantidad *</label>
+                                <input type="number" id="cantidad" name="cantidad" min="1" max="50" value="1" required>
+                            </p>
+
+                            <p class="campo">
+                                <label for="fecha">Fecha requerida de entrega *</label>
+                                <input type="date" id="fecha" name="fecha" required>
+                            </p>
+                        </div>
+
+                        <p class="campo">
+                            <label for="notas">Indicaciones de talla o color (opcional)</label>
+                            <textarea id="notas" name="notas" rows="3"
+                                placeholder="Ej. Talla M, color azul marino, entrega por la tarde."></textarea>
+                        </p>
+
+                        <p class="campo campo-checkbox">
+                            <input type="checkbox" id="terminos" name="terminos" required>
+                            <label for="terminos">Acepto que el pedido se confirma por llamada o WhatsApp</label>
+                        </p>
+                    </fieldset>
+                </div>
+
+                <button type="submit" class="btn-enviar-pedido">Confirmar y Enviar Pedido</button>
+            </form>
+        </section>
+
+        <!-- SECCIÓN 4: TABLA DE PRECIOS Y DISPONIBILIDAD -->
+        <section id="Precios" class="seccion-precios">
+            <h2>Lista de Precios y Disponibilidad por Moda</h2>
+            <div class="tabla-contenedor">
+                <table>
+                    <caption>Lista comparativa de prendas de vestir y disponibilidad</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">Prenda</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Precio Base</th>
+                            <th scope="col">Disponibilidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Moda Femenina -->
+                        <tr>
+                            <td rowspan="4" class="categoria-celda cat-fem">Moda Femenina (Mujer)</td>
+                            <td>Pantalón Jean Flare Dama</td>
+                            <td>Pantalón</td>
+                            <td>Bs 85.00</td>
+                            <td><span class="tag-disp si">Disponible</span></td>
+                        </tr>
+                        <tr>
+                            <td>Camisa de Seda Elegante</td>
+                            <td>Camisa</td>
+                            <td>Bs 65.00</td>
+                            <td><span class="tag-disp si">Disponible</span></td>
+                        </tr>
+                        <tr>
+                            <td>Chompa de Hilo Fina</td>
+                            <td>Chompa</td>
+                            <td>Bs 75.00</td>
+                            <td><span class="tag-disp si">Disponible</span></td>
+                        </tr>
+                        <tr>
+                            <td>Buzo Oversize Urbano</td>
+                            <td>Buso</td>
+                            <td>Bs 60.00</td>
+                            <td><span class="tag-disp si">Disponible</span></td>
+                        </tr>
+
+                        <!-- Moda Masculina -->
+                        <tr>
+                            <td rowspan="4" class="categoria-celda cat-masc">Moda Masculina (Hombre)</td>
+                            <td>Pantalón Jean Clásico</td>
+                            <td>Pantalón</td>
+                            <td>Bs 85.00</td>
+                            <td><span class="tag-disp si">Disponible</span></td>
+                        </tr>
+                        <tr>
+                            <td>Camisa Formal Oxford</td>
+                            <td>Camisa</td>
+                            <td>Bs 70.00</td>
+                            <td><span class="tag-disp si">Disponible</span></td>
+                        </tr>
+                        <tr>
+                            <td>Chompa Tejida Cuello en V</td>
+                            <td>Chompa</td>
+                            <td>Bs 80.00</td>
+                            <td><span class="tag-disp si">Disponible</span></td>
+                        </tr>
+                        <tr>
+                            <td>Buzo Hoodie Deportivo</td>
+                            <td>Buso</td>
+                            <td>Bs 65.00</td>
+                            <td><span class="tag-disp si">Disponible</span></td>
+                        </tr>
+
+                        <!-- Moda Kids -->
+                        <tr>
+                            <td rowspan="4" class="categoria-celda cat-kids">Moda Kids (Niños)</td>
+                            <td>Pantalón Jogger Kids</td>
+                            <td>Pantalón</td>
+                            <td>Bs 45.00</td>
+                            <td><span class="tag-disp si">Disponible</span></td>
+                        </tr>
+                        <tr>
+                            <td>Camisita Casual Estampada</td>
+                            <td>Camisa</td>
+                            <td>Bs 40.00</td>
+                            <td><span class="tag-disp si">Disponible</span></td>
+                        </tr>
+                        <tr>
+                            <td>Chompa Abrigada de Algodón</td>
+                            <td>Chompa</td>
+                            <td>Bs 50.00</td>
+                            <td><span class="tag-disp si">Disponible</span></td>
+                        </tr>
+                        <tr>
+                            <td>Buzo Deportivo con Capucha</td>
+                            <td>Buso</td>
+                            <td>Bs 45.00</td>
+                            <td><span class="tag-disp si">Disponible</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: VITRINA DESTACADA -->
+        <section class="vitrina-seccion">
+            <h2>Nuestra Vitrina de Exhibición</h2>
             <div class="tarjeta-imagen">
                 <figure>
-                    <img src="1 web jpg.jpg"
-                    alt="vitrina con ropa vestida en un maniqui"
-                    width="600" height="400">
-                    <figcaption>Siempre de Alta Calidad</figcaption>
+                    <img src="1 web jpg.jpg" alt="Vitrina con ropa vestida en un maniquí en Shop Camacho Estilos"
+                        width="600" height="400">
+                    <figcaption>Shop Camacho Estilos • Alta calidad en cada puntada</figcaption>
                 </figure>
             </div>
-        </main>
-        <aside>
-        <h2>¿Sabías?</h2>
-            <p>tenemos servicios de pago en efectivo y qr</p>
-        </aside>
-        <footer id="Contacto">
-            <h2>Contacto</h2>
-            <address>
-                Av. estudiantil<br>
-                Teléfono: 71990990
-            </address>
-            <p><small>&copy; 2026 Camacho Estilos</small></p>
-        </footer>
+        </section>
 
-    </body>
+        <!-- SECCIÓN 6: DATOS REMOTOS (Ajax / fetch / jQuery) -->
+        <section id="remoto" aria-label="Carga de datos remotos">
+            <div class="seccion-titulo">
+                <span class="badge-panel-tag">🌐 Datos en Tiempo Real</span>
+                <h2>Catálogo Remoto (fetch &amp; jQuery)</h2>
+                <p class="subtitulo-seccion">Los productos a continuación se cargan desde un archivo JSON externo
+                    usando <em>fetch</em> o <em>jQuery.getJSON</em>. Prueba cada botón para ver los tres estados:
+                    cargando, éxito y error.</p>
+            </div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-bottom:1rem;">
+                <button type="button" id="cargar-fetch" class="btn-mostrar-avisos" style="width:auto;">
+                    ⚡ Cargar con fetch
+                </button>
+                <button type="button" id="cargar-jquery" class="btn-mostrar-avisos"
+                    style="width:auto; background: var(--gradiente-masculina);">
+                    🔵 Cargar con jQuery
+                </button>
+                <button type="button" id="cargar-roto" class="btn-mostrar-avisos"
+                    style="width:auto; background: linear-gradient(135deg,#e55,#b22);">
+                    💥 Simular Error (URL rota)
+                </button>
+            </div>
+
+            <p id="estado" aria-live="polite"></p>
+
+            <div id="lista-remota"></div>
+        </section>
+    </main>
+
+    <!-- ── BARRA LATERAL (ASIDE) ────────────────────────────────────────────── -->
+    <aside>
+        <div class="tarjeta-aside">
+            <h2>¿Sabías qué?</h2>
+            <ul class="lista-ventajas">
+                <li>
+                    <strong>Métodos de pago flexibles:</strong>
+                    Aceptamos efectivo, transferencias bancarias y cobro por código QR al instante.
+                </li>
+                <li>
+                    <strong>Prendas para toda la familia:</strong>
+                    Especialistas en pantalones, camisas, chompas y busos para mujer, hombre y niños.
+                </li>
+                <li>
+                    <strong>Garantía de confección:</strong>
+                    Cambios de talla inmediatos dentro de las primeras 48 horas de entrega.
+                </li>
+                <li>
+                    <strong>Envíos coordinados:</strong>
+                    Llegamos a domicilio en toda la ciudad con entrega rápida y segura.
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- ── PIE DE PÁGINA (FOOTER) ───────────────────────────────────────────── -->
+    <footer id="Contactos">
+        <div class="footer-contenido">
+            <div class="footer-col">
+                <h2>SHOP CAMACHO ESTILOS</h2>
+                <p>Tu tienda de confianza con lo mejor en moda femenina, masculina e infantil.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Contacto Directo</h3>
+                <address>
+                    Av. Estudiantil<br>
+                    Teléfono / WhatsApp: <a href="tel:71990990">71990990</a>
+                </address>
+            </div>
+            <div class="footer-col">
+                <h3>Nuestras Modas</h3>
+                <p>• Ropa para Mujer (Dama)<br>• Ropa para Hombre (Caballero)<br>• Ropa para Niños (Kids)</p>
+            </div>
+        </div>
+        <div class="footer-inferior">
+            <p><small>&copy; 2026 Shop Camacho Estilos. Diseñado para ofrecer la mejor experiencia en moda.</small></p>
+        </div>
+    </footer>
+
+    <!-- ── SCRIPTS VINCULADOS EN ARMONÍA ───────────────────────────────────── -->
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="jquery-panel.js"></script>
+    <script src="datos.js"></script>
+    <script src="funciones.js"></script>
+    <script src="render.js"></script>
+    <script src="script.js"></script>
+    <script src="remoto.js"></script>
+</body>
+
 </html>
