@@ -1113,12 +1113,13 @@ footer {
 
 .panel-grid-contenedor {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
   gap: var(--espacio-lg);
   margin-top: 1rem;
 }
 
 .panel-tarjeta {
+  min-width: 0;
   background: #ffffff;
   border: 1.5px solid var(--borde-suave);
   border-radius: var(--radio);
@@ -1143,6 +1144,11 @@ footer {
   border-bottom: 1px solid var(--borde-suave);
 }
 
+.panel-cabecera > div,
+.aviso-item > div {
+  min-width: 0;
+}
+
 .panel-icono {
   font-size: 1.8rem;
   line-height: 1;
@@ -1162,6 +1168,66 @@ footer {
   font-size: 0.88rem;
   color: var(--color-texto-mutado);
   margin: 0;
+}
+
+@media (max-width: 40rem) {
+  .caja-horarios,
+  #pedido,
+  .seccion-precios,
+  .vitrina-seccion {
+    min-width: 0;
+    padding: var(--espacio);
+  }
+
+  #productos,
+  .grid-horarios,
+  .formulario-grid,
+  .footer-contenido,
+  #lista-remota {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fila-dos-campos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .formulario-grid > fieldset,
+  .item-horario {
+    min-width: 0;
+  }
+
+  .control-grupo,
+  .control-orden,
+  .control-orden select {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .control-orden {
+    width: 100%;
+  }
+
+  .tabla-contenedor {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .seccion-panel-destacado {
+    padding: var(--espacio);
+  }
+
+  .panel-grid-contenedor {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--espacio);
+  }
+
+  .panel-tarjeta {
+    padding: 1rem;
+  }
+
+  .panel-cabecera > div {
+    overflow-wrap: anywhere;
+  }
 }
 
 .btn-mostrar-avisos {
