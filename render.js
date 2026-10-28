@@ -43,6 +43,9 @@ function crearTarjeta(producto) {
   const etiquetaCat = NOMBRES_CATEGORIAS[producto.categoria] || producto.categoria;
 
   articulo.innerHTML = `
+    <div class="tarjeta-img-wrap">
+      <img src="${producto.imagen}" alt="${producto.nombre}" loading="lazy">
+    </div>
     <div class="tarjeta-cabecera">
       <span class="badge-categoria badge-${producto.categoria}">${etiquetaCat}</span>
       <span class="badge-tipo">${etiquetaTipo}</span>
