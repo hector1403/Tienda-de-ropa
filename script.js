@@ -51,9 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ── 3. FUNCIÓN PRINCIPAL DE FILTRADO Y ORDENAMIENTO ─────────────────────
   function actualizarCatalogo() {
-    // Re-leer tarjetas si fueron modificadas dinámicamente
-    articulosOriginales = Array.from(contenedorProductos.querySelectorAll(".tarjeta, article"));
-
     let visibles = articulosOriginales.filter(art => {
       const cat = (art.dataset.categoria || "").toLowerCase();
       const coincideCat = (categoriaActiva === "todos" || cat === categoriaActiva);

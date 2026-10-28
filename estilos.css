@@ -1381,3 +1381,73 @@ footer {
     animation: none;
   }
 }
+
+.preferencias-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.preferencias-tienda button {
+  padding: 0.65rem 0.9rem;
+  border: 0;
+  border-radius: var(--radio-sm);
+  background: var(--gradiente-boton);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.preferencias-tienda button:hover {
+  background: var(--color-primario-hover);
+}
+
+#estado-prefs,
+#estado-ubicacion {
+  min-height: 1.5em;
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+  color: var(--color-texto-mutado);
+}
+
+body.tema-oscuro {
+  --color-texto: #f7edf1;
+  --color-texto-mutado: #c9b9c0;
+  --color-fondo: #191619;
+  --color-superficie: #262126;
+  --color-superficie-alt: #352c32;
+  --borde-suave: #51414a;
+  --borde-fuerte: #db6c8c;
+  --disp-fondo-verde: #173a2e;
+  --agotado-fondo-rojo: #48232c;
+  color-scheme: dark;
+}
+
+body.tema-oscuro .controles,
+body.tema-oscuro .tarjeta,
+body.tema-oscuro .panel-tarjeta,
+body.tema-oscuro .caja-horarios,
+body.tema-oscuro .acordeon-item,
+body.tema-oscuro .acordeon-item .titulo,
+body.tema-oscuro .acordeon-item .cuerpo,
+body.tema-oscuro .aviso-item {
+  background-color: var(--color-superficie);
+  color: var(--color-texto);
+}
+
+body.tema-oscuro .controles input,
+body.tema-oscuro .controles select,
+body.tema-oscuro #pedido input,
+body.tema-oscuro #pedido select,
+body.tema-oscuro #pedido textarea {
+  background-color: var(--color-superficie-alt);
+  color: var(--color-texto);
+  border-color: var(--borde-suave);
+}
+
+body.tema-oscuro .nota-talla,
+body.tema-oscuro .aviso-destacado {
+  background: var(--color-superficie-alt);
+}
