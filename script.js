@@ -12,6 +12,22 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+  const seccionesOrdenadas = [
+    "#Galeria",
+    "#Panel",
+    "#Precios",
+    "#tablero-seccion",
+    "#pedido",
+    ".vitrina-seccion",
+    "#preferencias-local",
+    "#Horarios",
+  ];
+  const contenidoPrincipal = document.querySelector("main");
+  seccionesOrdenadas.forEach((selector) => {
+    const seccion = contenidoPrincipal?.querySelector(selector);
+    if (seccion) contenidoPrincipal.append(seccion);
+  });
+
   // ── 1. SELECTORES DE ELEMENTOS DEL DOM ───────────────────────────────────
   const buscador = document.querySelector("#buscador");
   const contenedorFiltros = document.querySelector("#filtros");
@@ -21,6 +37,48 @@ document.addEventListener("DOMContentLoaded", () => {
   const contenedorProductos = document.querySelector("#productos");
   const formularioPedido = document.querySelector("#pedido form") || document.querySelector("form");
   const selectProducto = document.querySelector("#producto");
+  const cantidadProducto = document.querySelector("#cantidad");
+  const resumenPedido = document.querySelector("#resumen-pedido-form");
+  const detallePedido = document.querySelector("#detalle-pedido-form");
+  const productosPedidoInput = document.querySelector("#productos-pedido-form");
+  const montoPedidoInput = document.querySelector("#monto-pedido-form");
+  const campoProducto = selectProducto?.closest(".campo");
+  const campoCantidad = cantidadProducto?.closest(".campo");
+
+  function limpiarPedidoDelTablero() {
+    if (resumenPedido) resumenPedido.hidden = true;
+    detallePedido?.replaceChildren();
+    if (productosPedidoInput) productosPedidoInput.value = "";
+    if (montoPedidoInput) montoPedidoInput.value = "";
+    if (campoProducto) campoProducto.hidden = false;
+    if (campoCantidad) campoCantidad.hidden = false;
+    if (selectProducto) selectProducto.disabled = false;
+    if (cantidadProducto) cantidadProducto.disabled = false;
+  }
+
+  document.addEventListener("pedido:continuar", (event) => {
+    const { lineas, total } = event.detail || {};
+    if (!Array.isArray(lineas) || !lineas.length || !resumenPedido || !detallePedido) return;
+
+    detallePedido.replaceChildren();
+    const textoLineas = lineas.map(({ producto, cantidad }) => {
+      const subtotal = producto.precio * cantidad;
+      const texto = `${producto.nombre}: ${cantidad} x Bs ${producto.precio.toFixed(2)} = Bs ${subtotal.toFixed(2)}`;
+      const item = document.createElement("li");
+      item.textContent = texto;
+      detallePedido.append(item);
+      return texto;
+    });
+
+    document.querySelector("#total-pedido-form").textContent = `Bs ${total.toFixed(2)}`;
+    productosPedidoInput.value = textoLineas.join("\n");
+    montoPedidoInput.value = total.toFixed(2);
+    resumenPedido.hidden = false;
+    if (campoProducto) campoProducto.hidden = true;
+    if (campoCantidad) campoCantidad.hidden = true;
+    if (selectProducto) selectProducto.disabled = true;
+    if (cantidadProducto) cantidadProducto.disabled = true;
+  });
 
   if (!contenedorProductos) {
     console.warn("No se encontró el contenedor #productos");
@@ -151,6 +209,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const botonPedir = e.target.closest(".btn-pedir");
     if (!botonPedir) return;
 
+    limpiarPedidoDelTablero();
+
     const nombrePrenda = botonPedir.dataset.nombre || (botonPedir.closest("article").querySelector("h3") ? botonPedir.closest("article").querySelector("h3").textContent : "");
 
     if (selectProducto && nombrePrenda) {
@@ -208,6 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const datos = Object.fromEntries(new FormData(formularioPedido));
+      const pedidoDelTablero = Boolean(datos.productosPedido);
 
       // Texto de la prenda seleccionada
       const nombreProducto = selectProducto && selectProducto.selectedIndex >= 0
@@ -225,7 +286,10 @@ document.addEventListener("DOMContentLoaded", () => {
       alertaExito.className = "mensaje-exito";
       alertaExito.innerHTML = `
         <h3>¡Pedido registrado con éxito!</h3>
-        <p>Muchas gracias, <strong>${datos.nombre}</strong>. Hemos registrado tu pedido de <strong>${datos.cantidad} unidad(es) de ${nombreProducto}</strong>.</p>
+        <p>Muchas gracias, <strong>${datos.nombre}</strong>. Hemos registrado tu pedido.</p>
+        ${pedidoDelTablero
+          ? `<p><strong>Prendas:</strong><br>${datos.productosPedido.replace(/\n/g, "<br>")}</p><p><strong>Total a pagar: Bs ${Number(datos.totalPedido).toFixed(2)}</strong></p>`
+          : `<p><strong>${datos.cantidad} unidad(es) de ${nombreProducto}</strong></p>`}
         <p>Fecha acordada: <strong>${datos.fecha}</strong>. Nos comunicaremos contigo al teléfono <strong>${datos.telefono || "proporcionado"}</strong> para coordinar la entrega.</p>
         ${datos.notas ? `<p><small>Indicaciones: "${datos.notas}"</small></p>` : ""}
       `;
@@ -237,6 +301,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       formularioPedido.reset();
+      if (pedidoDelTablero) {
+        limpiarPedidoDelTablero();
+        document.querySelector("#vaciar-pedido")?.click();
+      }
     });
   }
 

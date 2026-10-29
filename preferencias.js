@@ -82,24 +82,20 @@ let preferencias = leerPreferencias();
 
 document.addEventListener("DOMContentLoaded", () => {
   const botonTema = document.querySelector("#tema-toggle");
-  const botonOlvidar = document.querySelector("#olvidar");
   const selectorOrden = document.querySelector("#orden");
-  const estadoPrefs = document.querySelector("#estado-prefs");
   const botonUbicacion = document.querySelector("#ubicarme");
   const estadoUbicacion = document.querySelector("#estado-ubicacion");
-
-  function actualizarEstadoPrefs() {
-    if (estadoPrefs) {
-      estadoPrefs.textContent = `Tema ${preferencias.tema}, orden: ${preferencias.orden}.`;
-    }
-  }
 
   function aplicarPreferencias(sincronizarCatalogo = false) {
     document.body.classList.toggle("tema-oscuro", preferencias.tema === "oscuro");
 
     if (botonTema) {
       botonTema.setAttribute("aria-pressed", String(preferencias.tema === "oscuro"));
-      botonTema.textContent = preferencias.tema === "oscuro" ? "Usar tema claro" : "Usar tema oscuro";
+      botonTema.textContent = preferencias.tema === "oscuro" ? "☀ Modo claro" : "☾ Modo oscuro";
+      botonTema.setAttribute(
+        "aria-label",
+        preferencias.tema === "oscuro" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"
+      );
     }
 
     if (selectorOrden) {
@@ -108,8 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
         selectorOrden.dispatchEvent(new Event("change", { bubbles: true }));
       }
     }
-
-    actualizarEstadoPrefs();
   }
 
   aplicarPreferencias(true);
@@ -128,20 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ? event.target.value
         : PREFERENCIAS_POR_DEFECTO.orden;
       guardarPreferencias(preferencias);
-      actualizarEstadoPrefs();
-    });
-  }
-
-  if (botonOlvidar) {
-    botonOlvidar.addEventListener("click", () => {
-      try {
-        localStorage.removeItem(CLAVE);
-      } catch (error) {
-        console.warn("No se pudieron borrar las preferencias:", error.message);
-      }
-      preferencias = { ...PREFERENCIAS_POR_DEFECTO };
-      aplicarPreferencias(true);
-      if (estadoPrefs) estadoPrefs.textContent = "Preferencias restablecidas.";
     });
   }
 

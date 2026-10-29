@@ -29,13 +29,16 @@
                 aria-controls="menu-movil">
                 <span class="icono-menu">☰</span> Menú y Panel
             </button>
+            <button type="button" id="tema-toggle" class="btn-tema" aria-label="Cambiar a modo oscuro"
+                aria-pressed="false">☾ Modo oscuro</button>
             <nav aria-label="Navegación principal">
                 <ul>
                     <li><a href="#Galeria">Galería</a></li>
                     <li><a href="#Panel">Panel de Moda</a></li>
-                    <li><a href="#Horarios">Horarios</a></li>
-                    <li><a href="#pedido">Hacer Pedido</a></li>
                     <li><a href="#Precios">Precios</a></li>
+                    <li><a href="#tablero-seccion">Armar pedido</a></li>
+                    <li><a href="#pedido">Confirmar pedido</a></li>
+                    <li><a href="#Horarios">Horarios</a></li>
                     <li><a href="#Contactos">Contacto</a></li>
                 </ul>
             </nav>
@@ -46,8 +49,9 @@
             <div class="menu-movil-links">
                 <a href="#Galeria" class="link-chip">👗 Catálogo (4 Prendas por Moda)</a>
                 <a href="#Panel" class="link-chip">✨ Promociones y Tallas</a>
-                <a href="#pedido" class="link-chip">🛍️ Formulario de Pedido</a>
                 <a href="#Precios" class="link-chip">🏷️ Tabla Comparativa</a>
+                <a href="#tablero-seccion" class="link-chip">🛍️ Armar pedido</a>
+                <a href="#pedido" class="link-chip">🧾 Confirmar pedido</a>
                 <a href="#Horarios" class="link-chip">⏰ Horarios de Atención</a>
             </div>
         </div>
@@ -507,52 +511,7 @@
                     </div>
                 </div>
 
-                <div class="panel-tarjeta preferencias-tienda">
-                    <div class="panel-cabecera">
-                        <span class="panel-icono" aria-hidden="true">⚙</span>
-                        <div>
-                            <h3>Preferencias de navegación</h3>
-                            <p class="panel-bajada">Guarda el tema y el orden del catálogo en este navegador.</p>
-                        </div>
-                    </div>
-                    <div class="preferencias-acciones">
-                        <button type="button" id="tema-toggle" aria-pressed="false">Modo oscuro</button>
-                        <button type="button" id="olvidar">Olvidar preferencias</button>
-                    </div>
-                    <p id="estado-prefs" aria-live="polite"></p>
-                </div>
-
-                <div class="panel-tarjeta preferencias-tienda">
-                    <div class="panel-cabecera">
-                        <span class="panel-icono" aria-hidden="true">⌖</span>
-                        <div>
-                            <h3>Distancia al local</h3>
-                            <p class="panel-bajada">Comparte tu ubicación solo si quieres consultar la distancia aproximada.</p>
-                        </div>
-                    </div>
-                    <button type="button" id="ubicarme">Consultar distancia</button>
-                    <p id="estado-ubicacion" aria-live="polite"></p>
-                </div>
             </div>
-        </section>
-
-        <!-- SECCIÓN 2: HORARIOS DE ATENCIÓN -->
-        <section id="Horarios">
-            <article class="caja-horarios">
-                <h2>Horarios de Atención</h2>
-                <div class="grid-horarios">
-                    <div class="item-horario">
-                        <h3>Lunes a Viernes</h3>
-                        <p class="hora-destacada">Atención continua de 08:30 a 20:30</p>
-                        <p class="hora-nota">Atención en tienda física y pedidos en línea 24/7</p>
-                    </div>
-                    <div class="item-horario">
-                        <h3>Sábados y Domingos</h3>
-                        <p class="hora-destacada">09:00 a 18:00</p>
-                        <p class="hora-nota">Entregas y envíos coordinados por WhatsApp</p>
-                    </div>
-                </div>
-            </article>
         </section>
 
         <!-- SECCIÓN 3: FORMULARIO DE PEDIDOS -->
@@ -562,6 +521,13 @@
                 para confirmar tu entrega.</p>
 
             <form action="/pedido" method="post" novalidate>
+                <div id="resumen-pedido-form" class="resumen-pedido-form" hidden aria-live="polite">
+                    <h3>Prendas seleccionadas</h3>
+                    <ul id="detalle-pedido-form"></ul>
+                    <p>Total a pagar: <strong id="total-pedido-form">Bs 0.00</strong></p>
+                </div>
+                <input type="hidden" id="productos-pedido-form" name="productosPedido">
+                <input type="hidden" id="monto-pedido-form" name="totalPedido">
                 <div class="formulario-grid">
                     <!-- DATOS PERSONALES -->
                     <fieldset>
@@ -767,33 +733,90 @@
             </div>
         </section>
 
-        <!-- SECCIÓN 6: DATOS REMOTOS (Ajax / fetch / jQuery) -->
-        <section id="remoto" aria-label="Carga de datos remotos">
+        <section id="preferencias-local" class="seccion-panel-destacado seccion-preferencias"
+            aria-labelledby="titulo-preferencias-local">
             <div class="seccion-titulo">
-                <span class="badge-panel-tag">🌐 Datos en Tiempo Real</span>
-                <h2>Catálogo Remoto (fetch &amp; jQuery)</h2>
-                <p class="subtitulo-seccion">Los productos a continuación se cargan desde un archivo JSON externo
-                    usando <em>fetch</em> o <em>jQuery.getJSON</em>. Prueba cada botón para ver los tres estados:
-                    cargando, éxito y error.</p>
+                <span class="badge-panel-tag">📍 Ubicación</span>
+                <h2 id="titulo-preferencias-local">Ubicación del local</h2>
+                <p class="subtitulo-seccion">Consulta la distancia aproximada al local compartiendo tu ubicación.</p>
+            </div>
+            <div class="panel-grid-contenedor preferencias-grid">
+                <div class="panel-tarjeta preferencias-tienda preferencias-distancia">
+                    <div class="panel-cabecera">
+                        <span class="panel-icono" aria-hidden="true">⌖</span>
+                        <div>
+                            <h3>Distancia al local</h3>
+                            <p class="panel-bajada">Comparte tu ubicación solo si quieres consultar la distancia aproximada.</p>
+                        </div>
+                    </div>
+                    <button type="button" id="ubicarme">Consultar distancia</button>
+                    <p id="estado-ubicacion" aria-live="polite"></p>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="Horarios" aria-labelledby="titulo-horarios">
+            <article class="caja-horarios">
+                <h2 id="titulo-horarios">Horarios de atención</h2>
+                <div class="grid-horarios">
+                    <div class="item-horario">
+                        <h3>Lunes a Viernes</h3>
+                        <p class="hora-destacada">08:30 a 20:30</p>
+                        <p class="hora-nota">Atención en tienda física y pedidos en línea 24/7.</p>
+                    </div>
+                    <div class="item-horario">
+                        <h3>Sábados y Domingos</h3>
+                        <p class="hora-destacada">09:00 a 18:00</p>
+                        <p class="hora-nota">Entregas y envíos coordinados por WhatsApp.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- SECCIÓN 7: CATÁLOGO Y PEDIDO CON ARRASTRAR Y SOLTAR -->
+        <section id="tablero-seccion" class="seccion-tablero" aria-label="Armar pedido con prendas disponibles">
+            <div class="seccion-titulo">
+                <span class="badge-panel-tag">🛍️ Tu selección</span>
+                <h2>Arma tu pedido</h2>
+                <p class="subtitulo-seccion">
+                    Arrastra las prendas disponibles a tu pedido o usa el botón para agregarlas.
+                </p>
             </div>
 
-            <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-bottom:1rem;">
-                <button type="button" id="cargar-fetch" class="btn-mostrar-avisos" style="width:auto;">
-                    ⚡ Cargar con fetch
-                </button>
-                <button type="button" id="cargar-jquery" class="btn-mostrar-avisos"
-                    style="width:auto; background: var(--gradiente-masculina);">
-                    🔵 Cargar con jQuery
-                </button>
-                <button type="button" id="cargar-roto" class="btn-mostrar-avisos"
-                    style="width:auto; background: linear-gradient(135deg,#e55,#b22);">
-                    💥 Simular Error (URL rota)
+            <div class="tablero-herramientas">
+                <span class="tablero-instruccion">Elige prendas del catálogo y revisa aquí las cantidades y el total.</span>
+                <button type="button" id="vaciar-pedido" class="btn-reset-tablero" title="Vaciar el pedido">
+                    Vaciar pedido
                 </button>
             </div>
 
-            <p id="estado" aria-live="polite"></p>
+            <div class="tablero-grid">
+                <section class="columna catalogo-panel" aria-labelledby="titulo-disponibles">
+                    <div class="columna-header">
+                        <span class="columna-badge badge-exhibicion">👗 Catálogo</span>
+                        <h3 id="titulo-disponibles">Prendas disponibles</h3>
+                        <p class="total" id="total-disponibles" aria-live="polite"></p>
+                    </div>
+                    <ul id="lista-prendas-disponibles" class="lista-columna" aria-label="Prendas disponibles para agregar"></ul>
+                </section>
 
-            <div id="lista-remota"></div>
+                <section id="area-pedido" class="columna pedido-panel" aria-labelledby="titulo-pedido">
+                    <div class="columna-header">
+                        <span class="columna-badge badge-reponer">🧾 Resumen</span>
+                        <h3 id="titulo-pedido">Tu pedido</h3>
+                        <p class="total" id="cantidad-pedido" aria-live="polite">0 unidades</p>
+                    </div>
+                    <ul id="lista-pedido" class="lista-columna" aria-label="Prendas agregadas al pedido"></ul>
+                    <div class="pedido-total">
+                        <span>Total</span>
+                        <strong id="total-pedido" aria-live="polite">Bs 0.00</strong>
+                    </div>
+                    <button type="button" id="continuar-pedido" class="btn-continuar-pedido" disabled>
+                        Continuar con el pedido
+                    </button>
+                    </section>
+            </div>
         </section>
     </main>
 
@@ -853,7 +876,7 @@
     <script src="funciones.js"></script>
     <script src="render.js"></script>
     <script src="script.js"></script>
-    <script src="remoto.js"></script>
+    <script src="tablero.js"></script>
     <script src="preferencias.js"></script>
 
 </body>

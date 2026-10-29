@@ -18,3 +18,14 @@
 
 ## Lo más difícil
 [lo mas dificil fue como estoy empezando. me cuesta entender muy bien los codigos y su funcionalidad y tambiembien lo que más me costó fue entender cómo y dónde colocar la etiqueta <div> No sabía para qué servía un div, pero aprendí que funciona como una caja contenedora para agrupar la etiqueta]
+
+## Laboratorio 2 y 3: una tienda más fácil de recorrer
+
+En esta etapa me enfoqué en que la tienda fuera más sencilla de recorrer y que armar un pedido tomara menos pasos. Estas son las mejoras que agregué:
+
+- **Recorrido y diseño:** Organicé la página desde el catálogo hasta el formulario y adapté las secciones para que también se vean bien en el celular.
+- **Carrito y stock:** Se pueden agregar prendas con el botón o arrastrándolas, ajustar cantidades y ver el total, sin superar las unidades disponibles.
+- **Pedido guardado:** El carrito permanece en el navegador al recargar la página, así la selección no se pierde mientras se prepara la compra.
+- **Formulario y confirmación:** El detalle y el total pasan al formulario. Al enviarlo, aparece un resumen; por ahora es una demostración, no procesa pagos ni envía datos a un servidor.
+- **Tema, ubicación y horarios:** El botón junto a **Menú y Panel** cambia entre modo claro y oscuro. En la parte final dejé la consulta de distancia y, debajo, los horarios.
+- **Catálogo remoto:** Lo quité para que el recorrido de compra sea más directo.
